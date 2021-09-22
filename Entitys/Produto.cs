@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace APICatalogo.Entitys
 {
 
-	[Table("Produtos")]
+    [Table("Produtos")]
 	public class Produto
 	{
 
