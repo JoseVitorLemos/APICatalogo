@@ -48,6 +48,35 @@ namespace APICatalogo.Controller
             return new CreatedAtRouteResult("ObterProduto", 
             new { id = produto.ProdutoId }, produto);
         }
+
+        [HttpPut("{id}")]
+        public ActionResult Put(int id,[FromBody] Produto produto)
+        {
+            if(id != produto.ProdutoId)
+            {
+                return BadRequest();
+            };
+
+            _context.Entry(produto).State = EntityState.Modified;
+            _context.SaveChanges();
+            return Ok(); 
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Produto> Delete(int id)
+        {
+            var produto = _context.Produtos.FirstOrDefault(prop => prop.ProdutoId == id);
+            
+            if(produto == null)
+            {
+                return NotFound();
+            }
+
+            _context.Produtos.Remove(produto);
+            _context.SaveChanges();
+            return produto;
+        }
+
     }
 }
 
