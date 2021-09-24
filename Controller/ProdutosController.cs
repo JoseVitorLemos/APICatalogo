@@ -12,7 +12,6 @@ namespace APICatalogo.Controller
     [ApiController]
 	public class ProdutosController : ControllerBase
     {
-
         private readonly DatabaseContext _context;
         
         public ProdutosController(DatabaseContext context)
@@ -76,7 +75,6 @@ namespace APICatalogo.Controller
             _context.SaveChanges();
             return produto;
         }
-
     }
 }
 
