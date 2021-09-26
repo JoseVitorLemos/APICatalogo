@@ -23,7 +23,14 @@ namespace APICatalogo.Controller
         [HttpGet]
         public ActionResult<IEnumerable<Produto>> Get()
         {
-            return _context.Produtos.AsNoTracking().ToList();    
+            try
+            {
+                return _context.Produtos.AsNoTracking().ToList();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
+            }            
         }
 
         [HttpGet("{id}",Name ="ObterProduto")]

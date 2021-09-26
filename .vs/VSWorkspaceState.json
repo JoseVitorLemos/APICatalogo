@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Entity"
+    "\\Controller",
+    "\\Properties"
   ],
-  "SelectedNode": "\\Entity\\Produto.cs",
+  "SelectedNode": "\\Startup.cs",
   "PreviewInSolutionExplorer": false
 }
