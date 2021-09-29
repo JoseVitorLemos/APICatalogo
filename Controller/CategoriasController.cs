@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using APICatalogo.Context;
 using APICatalogo.Entitys;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks; 
 
 namespace APICatalogo.Controller
 {
@@ -19,13 +20,13 @@ namespace APICatalogo.Controller
         {
             _context = context;
         }
-
+ 
         [HttpGet]
-        public ActionResult<IEnumerable<Categoria>> Get()
+        public async Task<ActionResult<IEnumerable<Categoria>>> GetAsync()
         {
             try
             {
-                return _context.Categorias.AsNoTracking().ToList();    
+               return await _context.Categorias.AsNoTracking().ToListAsync();
             } 
             catch (Exception)
             {
@@ -34,17 +35,17 @@ namespace APICatalogo.Controller
        }
 
         [HttpGet("produtos")]
-        public ActionResult<IEnumerable<Categoria>> GetCategoriaProdutos()
+        public async Task<ActionResult<IEnumerable<Categoria>>> GetCategoriaProdutosAsync()
         {
-            return _context.Categorias.Include(x => x.Produtos).ToList();    
+            return await _context.Categorias.Include(x => x.Produtos).ToListAsync();    
         }
 
         [HttpGet("{id}",Name ="ObterCategoria")]
-        public ActionResult<Categoria> Get(int id)
+        public async Task<ActionResult<Categoria>> GetAsync(int id)
         {
             try
             {
-                var categoria = _context.Categorias.AsNoTracking().FirstOrDefault(prop => prop.CategoriaId == id);
+                var categoria = await _context.Categorias.AsNoTracking().FirstOrDefaultAsync(prop => prop.CategoriaId == id);
 
                 if(categoria == null)
                 {

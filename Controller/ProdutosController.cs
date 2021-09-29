@@ -19,7 +19,6 @@ namespace APICatalogo.Controller
             _context = context;
         }
 
-
         [HttpGet]
         public ActionResult<IEnumerable<Produto>> Get()
         {
@@ -29,7 +28,7 @@ namespace APICatalogo.Controller
             }
             catch (Exception)
             {
-                return StatusCode(500, "Internal server error");
+                return StatusCode(500, "Error ao buscar produto");
             }            
         }
 
