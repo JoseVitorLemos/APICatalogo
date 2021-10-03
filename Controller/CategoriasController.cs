@@ -7,6 +7,7 @@ using APICatalogo.Context;
 using APICatalogo.Entitys;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks; 
+using APICatalogo.Services;
 
 namespace APICatalogo.Controller
 {
@@ -19,6 +20,12 @@ namespace APICatalogo.Controller
         public CategoriasController(DatabaseContext context)
         {
             _context = context;
+        }
+
+        [HttpGet("saudacao/{nome}")]
+        public ActionResult<string> GetSaudacao([FromServices] IMeuServico meuservico, string nome)
+        {
+           return meuservico.Saudacao(nome);
         }
  
         [HttpGet]

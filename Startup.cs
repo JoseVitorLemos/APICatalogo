@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using APICatalogo.Context;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Converters;
+using APICatalogo.Services;
 
 namespace APICatalogo
 {
@@ -32,6 +33,8 @@ namespace APICatalogo
                 services.AddDbContext<DatabaseContext>(options => { 
                     options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),ServerVersion.AutoDetect(Configuration.GetConnectionString("DefaultConnection")));
                 });
+
+                services.AddTransient<IMeuServico,MeuServico>();
 
                 services.AddControllers().AddNewtonsoftJson(options =>
                 {
