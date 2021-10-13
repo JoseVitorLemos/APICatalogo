@@ -35,51 +35,63 @@ namespace APICatalogo.Controller
         [HttpGet("{id}",Name ="ObterProduto")]
         public ActionResult<Produto> Get(int id)
         {
-            var produto = _context.Produtos.AsNoTracking().FirstOrDefault(prop => prop.ProdutoId == id);
-
-            if(produto == null)
+            try
             {
-                return NotFound();
+            var produto = _context.Produtos.AsNoTracking().FirstOrDefault(prop => prop.ProdutoId == id);
+            return produto;
             }
-            return produto; 
+            catch (Exception)
+            {
+                return StatusCode(500, "Não foi possível encontrar o produto");
+            }
          }
 
         [HttpPost]
         public ActionResult Post([FromBody]Produto produto)
         {
+            try
+            {
             _context.Produtos.Add(produto);
             _context.SaveChanges();
-
             return new CreatedAtRouteResult("ObterProduto", 
             new { id = produto.ProdutoId }, produto);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Não foi possível adicionar o produto");
+            } 
         }
 
         [HttpPut("{id}")]
         public ActionResult Put(int id,[FromBody] Produto produto)
         {
-            if(id != produto.ProdutoId)
+            try 
             {
-                return BadRequest();
-            };
-
             _context.Entry(produto).State = EntityState.Modified;
             _context.SaveChanges();
-            return Ok(); 
+            return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Erro ao alterar produto"); 
+            }
+            
         }
 
         [HttpDelete("{id}")]
         public ActionResult<Produto> Delete(int id)
         {
-            var produto = _context.Produtos.FirstOrDefault(prop => prop.ProdutoId == id);
-            
-            if(produto == null)
+            try
             {
-                return NotFound();
-            }
-
+            var produto = _context.Produtos.FirstOrDefault(prop => prop.ProdutoId == id);
             _context.Produtos.Remove(produto);
             _context.SaveChanges();
             return produto;
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Erro ao deletar produto");
+            }
         }
     }
 }
