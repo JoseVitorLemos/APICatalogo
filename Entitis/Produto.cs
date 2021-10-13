@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using APICatalogo.Validations;
 
 namespace APICatalogo.Entitys
 {
@@ -12,8 +13,9 @@ namespace APICatalogo.Entitys
 	[Key]
     public int ProdutoId { get; set; }
 
-	[Required]
+	[Required(ErrorMessage = "O nome é obrigatório")]
 	[MaxLength(80)]
+    [PrimeiraLetraMaiuscula]
     public string Nome { get; set; }
  
 	[Required]
