@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using APICatalogo.Context;
 using APICatalogo.Entitys;
 using Microsoft.EntityFrameworkCore;
+using APICatalogo.Filter;
 
 namespace APICatalogo.Controller
 {
@@ -20,6 +21,7 @@ namespace APICatalogo.Controller
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(ApiLoggingFilter))]
         public ActionResult<IEnumerable<Produto>> Get()
         {
             try

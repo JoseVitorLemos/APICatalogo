@@ -15,6 +15,7 @@ using APICatalogo.Context;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Converters;
 using APICatalogo.Services;
+using APICatalogo.Filter;
 
 namespace APICatalogo
 {
@@ -30,17 +31,18 @@ namespace APICatalogo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-                services.AddDbContext<DatabaseContext>(options => { 
-                    options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),ServerVersion.AutoDetect(Configuration.GetConnectionString("DefaultConnection")));
-                });
+            services.AddScoped<ApiLoggingFilter>();
+            services.AddDbContext<DatabaseContext>(options => { 
+                options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),ServerVersion.AutoDetect(Configuration.GetConnectionString("DefaultConnection")));
+            });
 
-                services.AddTransient<IMeuServico,MeuServico>();
+            services.AddTransient<IMeuServico,MeuServico>();
 
-                services.AddControllers().AddNewtonsoftJson(options =>
-                {
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                });
-             
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+         
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "APICatalogo", Version = "v1" });
