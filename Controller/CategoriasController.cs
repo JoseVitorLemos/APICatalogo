@@ -4,7 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using APICatalogo.Context;
-using APICatalogo.Entitys;
+using APICatalogo.Entitis;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks; 
 using APICatalogo.Services;

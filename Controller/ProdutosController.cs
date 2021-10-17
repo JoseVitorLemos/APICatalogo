@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using APICatalogo.Context;
-using APICatalogo.Entitys;
+using APICatalogo.Entitis;
 using Microsoft.EntityFrameworkCore;
 using APICatalogo.Filter;
 
@@ -38,9 +38,9 @@ namespace APICatalogo.Controller
         public ActionResult<Produto> Get(int id)
         {
             try
-            {
-            var produto = _context.Produtos.AsNoTracking().FirstOrDefault(prop => prop.ProdutoId == id);
-            return produto;
+            { 
+                var produto = _context.Produtos.AsNoTracking().FirstOrDefault(prop => prop.ProdutoId == id);
+                return produto;
             }
             catch (Exception)
             {
@@ -53,10 +53,10 @@ namespace APICatalogo.Controller
         {
             try
             {
-            _context.Produtos.Add(produto);
-            _context.SaveChanges();
-            return new CreatedAtRouteResult("ObterProduto", 
-            new { id = produto.ProdutoId }, produto);
+                _context.Produtos.Add(produto);
+                _context.SaveChanges();
+                return new CreatedAtRouteResult("ObterProduto", 
+                new { id = produto.ProdutoId }, produto);
             }
             catch (Exception)
             {
@@ -69,9 +69,9 @@ namespace APICatalogo.Controller
         {
             try 
             {
-            _context.Entry(produto).State = EntityState.Modified;
-            _context.SaveChanges();
-            return Ok();
+                _context.Entry(produto).State = EntityState.Modified;
+                _context.SaveChanges();
+                return Ok();
             }
             catch (Exception)
             {
@@ -85,10 +85,10 @@ namespace APICatalogo.Controller
         {
             try
             {
-            var produto = _context.Produtos.FirstOrDefault(prop => prop.ProdutoId == id);
-            _context.Produtos.Remove(produto);
-            _context.SaveChanges();
-            return produto;
+                var produto = _context.Produtos.FirstOrDefault(prop => prop.ProdutoId == id);
+                _context.Produtos.Remove(produto);
+                _context.SaveChanges();
+                return produto;
             }
             catch (Exception)
             {

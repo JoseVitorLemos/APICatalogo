@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using APICatalogo.Validations;
 
-namespace APICatalogo.Entitys
+namespace APICatalogo.Entitis
 {
 
     [Table("Produtos")]

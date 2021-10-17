@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace APICatalogo.Entitys
+namespace APICatalogo.Entitis
 {
 	[Table("Categorias")]
 	public class Categoria

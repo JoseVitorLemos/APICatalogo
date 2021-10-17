@@ -1,5 +1,5 @@
 using System;
-using APICatalogo.Entitys;
+using APICatalogo.Entitis;
 using Microsoft.EntityFrameworkCore;
 
 namespace APICatalogo.Context
