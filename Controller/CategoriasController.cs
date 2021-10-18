@@ -8,6 +8,7 @@ using APICatalogo.Entitis;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks; 
 using APICatalogo.Services;
+using Microsoft.Extensions.Logging;
 
 namespace APICatalogo.Controller
 {
@@ -16,10 +17,12 @@ namespace APICatalogo.Controller
 	public class CategoriasController : ControllerBase
     {
         private readonly DatabaseContext _context;
+        private readonly ILogger _logger;
         
-        public CategoriasController(DatabaseContext context)
+        public CategoriasController(DatabaseContext context, ILogger<CategoriasController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [HttpGet("saudacao/{nome}")]
@@ -30,7 +33,7 @@ namespace APICatalogo.Controller
  
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Categoria>>> GetAsync()
-        {
+        { 
             try
             {
                return await _context.Categorias.AsNoTracking().ToListAsync();
@@ -44,12 +47,16 @@ namespace APICatalogo.Controller
         [HttpGet("produtos")]
         public async Task<ActionResult<IEnumerable<Categoria>>> GetCategoriaProdutosAsync()
         {
+            _logger.LogInformation("################## GET api/categorias/produtos ##################");
+
             return await _context.Categorias.Include(x => x.Produtos).ToListAsync();    
         }
 
         [HttpGet("{id}",Name ="ObterCategoria")]
         public async Task<ActionResult<Categoria>> GetAsync(int id)
         {
+            _logger.LogInformation($"################## GET api/categorias/produtos/id = {id} ##################");
+
             try
             {
                 var categoria = await _context.Categorias.AsNoTracking().FirstOrDefaultAsync(prop => prop.CategoriaId == id);
