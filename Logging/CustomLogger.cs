@@ -1,17 +1,17 @@
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
-using Microsoft.Extensions.Logging;
 
 namespace APICatalogo.Logging
 {
-	public class CustomerLogger : ILogger
+	public class CustomLogger : ILogger
 	{
         readonly string loggerName;
         readonly CustomLoggerProviderConfiguration loggerConfig;
 
-        public CustomerLogger(string nome, CustomLoggerProviderConfiguration config)
+        public CustomLogger(string name, CustomLoggerProviderConfiguration config)
         {
-            loggerName = name;
+            this.loggerName = name;
             loggerConfig = config;
         }
 
@@ -20,16 +20,16 @@ namespace APICatalogo.Logging
             return null;
         }
 
-        public bool IsEnable(LogLevel logLevel)
+        public bool IsEnabled(LogLevel logLevel)
         {
             return logLevel == loggerConfig.LogLevel;
         }
 
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exeception, Func<TState, Exception, string> formatter)
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
             string mensagem = $"{logLevel.ToString()}: {eventId.Id} - {formatter(state, exception)}";
 
-            EscreverTetoNoArquivo(mensagem);
+            EscreverTextoNoArquivo(mensagem);
         }
 
         private void EscreverTextoNoArquivo(string mensagem)
